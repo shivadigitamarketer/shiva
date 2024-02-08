@@ -1,0 +1,88 @@
+<!-- page2.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propose Day</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            gap: 15px; /* Spacing between images */
+            margin-top: 20px;
+            max-width: 600px; /* Adjust the maximum width of the gallery */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .image-gallery img {
+            max-width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px; /* Increased border-radius for a smoother look */
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .message-container {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: messageAnimation 3s 3s forwards;
+        }
+
+        .message {
+            background-color: #f8d7da;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+
+        @keyframes messageAnimation {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gallery of Memories</h1>
+        <div class="image-gallery">
+            <img src="img/photo 5.jpeg" alt="Love Image 1">
+            <img src="img/photo 2.jpeg" alt="Love Image 2">
+            <img src="img/photo 3.jpeg" alt="Love Image 3">
+            <img src="img/photo 4.jpeg" alt="Love Image 4">
+        </div>
+        <div class="message-container">
+            <div class="message">
+            <p>"Unki muskan mein chhupi hai ek khaas baat,
+                Dil se dil mile, ho gaya hai pyaar ka izhaar saath.
+                Propose Day hai aaj, keh do unse dil ki baat,
+                Tumhare bina adhoora hai, mera yeh saara saath.
+                
+                Dil ko behlaya, aankhon ne bayan kiya,
+                Tere ishq mein hai, har pal khudaai.
+                Propose karne ka hai aaj mauka bada,
+                Keh do unse, tu meri zindagi hai, sanam."</p> </div> </div>
+        <button onclick="nextPage()">Next</button>
+    </div>
+
+    <script>
+        function nextPage() {
+            window.location.href = "page3.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!-- calendar_page.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Additional styles for the calendar page */
+    body {
+      background-color: #f8d7da; /* Light red background color */
+      font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      margin: 50px auto;
+      max-width: 600px;
+    }
+
+    .calendar {
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .month-year {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .day-cell {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .day-cell:hover {
+      background-color: #ff4081;
+      color: #fff;
+    }
+
+    .day-cell.selected {
+      background-color: #ff4081;
+      color: #fff;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="calendar">
+      <div class="month-year" id="monthYear"></div>
+      <div id="calendar" class="calendar"></div>
+      <button class="btn" onclick="collectAndShare()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    function initializeCalendar() {
+      var calendar = document.getElementById("calendar");
+      var currentDate = new Date();
+      var currentMonth = currentDate.getMonth();
+      var currentYear = currentDate.getFullYear();
+      var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+      // Create day cells
+      for (var i = 1; i <= daysInMonth; i++) {
+        var dayCell = document.createElement("div");
+        dayCell.className = "day-cell";
+        dayCell.innerText = i;
+        calendar.appendChild(dayCell);
+      }
+
+      // Display month and year
+      document.getElementById("monthYear").innerText = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(currentDate);
+    }
+
+    function collectAndShare() {
+      var selectedDate = document.querySelector(".day-cell.selected");
+      if (selectedDate) {
+        // You can now handle the selected date and implement the logic to share via email.
+        // For simplicity, let's log the date to the console.
+        console.log("Selected Date: ", selectedDate.innerText);
+        alert("Date Selected: " + selectedDate.innerText);
+      } else {
+        alert("Please select a date!");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      initializeCalendar();
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!event.target.matches(".day-cell")) {
+        return;
+      }
+
+      var selectedDate = document.querySelector(".day-cell.selected");
+      if (selectedDate) {
+        selectedDate.classList.remove("selected");
+      }
+
+      event.target.classList.add("selected");
+    });
+  </script>
+</body>
+</html>
