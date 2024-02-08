@@ -4,8 +4,11 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    emailjs.init("service_mcwkdk9"); // Replace with your Email.js user ID
+  </script>
   <style>
-    /* Additional styles for the calendar page */
     body {
       background-color: #f8d7da; /* Light red background color */
       font-family: 'Arial', sans-serif;
@@ -52,6 +55,13 @@
       color: #fff;
     }
 
+    .email-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+
     .btn {
       display: inline-block;
       margin-top: 20px;
@@ -74,6 +84,7 @@
     <div class="calendar">
       <div class="month-year" id="monthYear"></div>
       <div id="calendar" class="calendar"></div>
+      <input type="email" class="email-input" placeholder="Enter your email address" id="emailInput">
       <button class="btn" onclick="collectAndShare()">Submit</button>
     </div>
   </div>
@@ -100,14 +111,38 @@
 
     function collectAndShare() {
       var selectedDate = document.querySelector(".day-cell.selected");
+      var emailInput = document.getElementById("emailInput").value;
+
       if (selectedDate) {
-        // You can now handle the selected date and implement the logic to share via email.
-        // For simplicity, let's log the date to the console.
-        console.log("Selected Date: ", selectedDate.innerText);
-        alert("Date Selected: " + selectedDate.innerText);
+        var selectedDateText = selectedDate.innerText;
+
+        if (emailInput && validateEmail(emailInput)) {
+          // Use Email.js to send the email
+          emailjs.send("service_mcwkdk9", "template_8zpq788", {
+            date: selectedDateText,
+            email: emailInput,
+          }).then(
+            function(response) {
+              console.log("Email sent successfully:", response);
+              alert("Date Selected: " + selectedDateText + "\nResponse submitted successfully! Check your email.");
+            },
+            function(error) {
+              console.log("Email sending failed:", error);
+              alert("Failed to submit response. Please try again later.");
+            }
+          );
+        } else {
+          alert("Please enter a valid email address.");
+        }
       } else {
         alert("Please select a date!");
       }
+    }
+
+    function validateEmail(email) {
+      // Basic email validation
+      var re = /\S+@\S+\.\S+/;
+      return re.test(email);
     }
 
     document.addEventListener("DOMContentLoaded", function () {
