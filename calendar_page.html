@@ -1,166 +1,26 @@
-<!-- calendar_page.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    emailjs.init("service_mcwkdk9"); // Replace with your Email.js user ID
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Collection Form</title>
   <style>
     body {
-      background-color: #f8d7da; /* Light red background color */
-      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
 
-    .container {
-      text-align: center;
-      margin: 50px auto;
-      max-width: 600px;
-    }
-
-    .calendar {
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      padding: 20px;
-    }
-
-    .month-year {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-
-    .day-cell {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      margin: 5px;
-      cursor: pointer;
-      border-radius: 50%;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    .day-cell:hover {
-      background-color: #ff4081;
-      color: #fff;
-    }
-
-    .day-cell.selected {
-      background-color: #ff4081;
-      color: #fff;
-    }
-
-    .email-input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      box-sizing: border-box;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #4caf50;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    .btn:hover {
-      background-color: #45a049;
+    iframe {
+      width: 80%; /* Adjust the width as needed */
+      height: 80vh; /* Adjust the height as needed */
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="calendar">
-      <div class="month-year" id="monthYear"></div>
-      <div id="calendar" class="calendar"></div>
-      <input type="email" class="email-input" placeholder="Enter your email address" id="emailInput">
-      <button class="btn" onclick="collectAndShare()">Submit</button>
-    </div>
-  </div>
-
-  <script>
-    function initializeCalendar() {
-      var calendar = document.getElementById("calendar");
-      var currentDate = new Date();
-      var currentMonth = currentDate.getMonth();
-      var currentYear = currentDate.getFullYear();
-      var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-      // Create day cells
-      for (var i = 1; i <= daysInMonth; i++) {
-        var dayCell = document.createElement("div");
-        dayCell.className = "day-cell";
-        dayCell.innerText = i;
-        calendar.appendChild(dayCell);
-      }
-
-      // Display month and year
-      document.getElementById("monthYear").innerText = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(currentDate);
-    }
-
-    function collectAndShare() {
-      var selectedDate = document.querySelector(".day-cell.selected");
-      var emailInput = document.getElementById("emailInput").value;
-
-      if (selectedDate) {
-        var selectedDateText = selectedDate.innerText;
-
-        if (emailInput && validateEmail(emailInput)) {
-          // Use Email.js to send the email
-          emailjs.send("service_mcwkdk9", "template_8zpq788", {
-            date: selectedDateText,
-            email: emailInput,
-          }).then(
-            function(response) {
-              console.log("Email sent successfully:", response);
-              alert("Date Selected: " + selectedDateText + "\nResponse submitted successfully! Check your email.");
-            },
-            function(error) {
-              console.log("Email sending failed:", error);
-              alert("Failed to submit response. Please try again later.");
-            }
-          );
-        } else {
-          alert("Please enter a valid email address.");
-        }
-      } else {
-        alert("Please select a date!");
-      }
-    }
-
-    function validateEmail(email) {
-      // Basic email validation
-      var re = /\S+@\S+\.\S+/;
-      return re.test(email);
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      initializeCalendar();
-    });
-
-    document.addEventListener("click", function (event) {
-      if (!event.target.matches(".day-cell")) {
-        return;
-      }
-
-      var selectedDate = document.querySelector(".day-cell.selected");
-      if (selectedDate) {
-        selectedDate.classList.remove("selected");
-      }
-
-      event.target.classList.add("selected");
-    });
-  </script>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd4d2jOzn7A0Bla08pGhqXspoUB9OnOMb3BwFUFKwDqyqCckg/viewform?usp=sf_link" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 </body>
 </html>
+
